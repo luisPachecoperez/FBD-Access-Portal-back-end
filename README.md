@@ -1,2 +1,2 @@
 # convocatorias
-Proyecto de convocatorias para la fundación cultivarte
+Proyecto de convocatorias para la Fundación Bolívar Davivienda

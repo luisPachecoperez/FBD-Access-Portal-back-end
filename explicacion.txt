@@ -1,0 +1,117 @@
+1. src/domain/models/
+¿Qué es?
+Esta carpeta contiene las representaciones de los objetos principales que se utilizan en el sistema. Aquí defines las clases que reflejan las entidades de negocio, es decir, los modelos que representan los datos y sus propiedades.
+
+Ejemplo: Beneficiarios.ts
+
+¿Para qué sirve?
+Define la estructura y los atributos de la entidad Beneficiario. Es el modelo que luego será utilizado por los servicios y repositorios para manipular los datos.
+
+¿Qué se hace aquí?
+
+Se definen las propiedades y métodos relevantes para la entidad (como constructor, validaciones simples o transformaciones).
+
+Es el "esqueleto" de la entidad.
+
+2. src/domain/repositories/
+¿Qué es?
+Esta carpeta contiene las interfaces (contratos) para los repositorios. Los repositorios definen las operaciones que se pueden realizar en la base de datos (como crear, leer, actualizar, eliminar).
+
+Ejemplo: IBeneficiarioRepository.ts
+
+¿Para qué sirve?
+Especifica los métodos que cualquier implementación del repositorio debe tener, como getBeneficiarios(), createBeneficiario(), etc.
+Define un contrato para las operaciones de datos de Beneficiario sin hacer la implementación.
+
+¿Qué se hace aquí?
+
+Se declara la interfaz que debe ser implementada por el repositorio.
+
+Los métodos deben devolver promesas de los modelos correspondientes, pero no tienen implementación.
+
+3. src/domain/usecases/
+¿Qué es?
+Los "casos de uso" representan las operaciones o la lógica de negocio que manipula los modelos a través de los repositorios. Los casos de uso son los encargados de aplicar las reglas de negocio.
+
+Ejemplo: BeneficiarioService.ts
+
+¿Para qué sirve?
+Contiene la lógica de negocio relacionada con los beneficiarios. Aquí, es donde se validan, transforman o calculan datos antes de hacer uso del repositorio para interactuar con la base de datos.
+
+¿Qué se hace aquí?
+
+Se implementan las reglas de negocio y las validaciones.
+
+Se llaman los métodos del repositorio.
+
+Se coordinan las diferentes operaciones relacionadas con los beneficiarios.
+
+4. src/infrastructure/db/queries/
+¿Qué es?
+Esta carpeta contiene las consultas SQL y scripts que se utilizan para interactuar con la base de datos. Son solo los fragmentos de código SQL necesarios para obtener o modificar los datos, y deben ser reutilizables.
+
+Ejemplo: beneficiariosQueries.ts
+
+¿Para qué sirve?
+Define las consultas SQL relacionadas con los beneficiarios, como consultas para obtener beneficiarios, insertar nuevos, o eliminar, etc.
+
+¿Qué se hace aquí?
+
+Se definen las consultas SQL para manipular los datos directamente.
+
+Estas consultas son referenciadas en los repositorios para ejecutar las operaciones sobre la base de datos.
+
+5. src/infrastructure/graphql/
+¿Qué es?
+Esta carpeta contiene los archivos relacionados con GraphQL, incluyendo resolvers y esquemas. Es la capa que gestiona la comunicación entre el frontend y el backend a través de GraphQL.
+
+Ejemplo: resolvers/beneficiarios/beneficiariosResolver.ts
+
+¿Para qué sirve?
+Los resolvers son las funciones que reciben las peticiones GraphQL y llaman a los servicios correspondientes. Este archivo contiene la implementación de las consultas y mutaciones relacionadas con Beneficiario.
+
+¿Qué se hace aquí?
+
+Se define la lógica de las consultas y mutaciones de GraphQL (por ejemplo, getBeneficiarios, createBeneficiario, etc.).
+
+Se mapea la entrada y salida de GraphQL a los servicios correspondientes.
+
+Ejemplo: schemas/beneficiarios.ts
+
+¿Para qué sirve?
+Define el esquema GraphQL de los beneficiarios, especificando las consultas, mutaciones, y tipos de datos (Input y Output) utilizados en las operaciones.
+
+¿Qué se hace aquí?
+
+Se definen los tipos, las entradas y las salidas que GraphQL espera recibir y devolver.
+
+Especifica la estructura de las consultas y mutaciones disponibles en GraphQL.
+
+6. src/infrastructure/repositories/implementations/
+¿Qué es?
+Esta carpeta contiene las implementaciones de las interfaces de los repositorios definidas en src/domain/repositories/. Aquí es donde se concretan las operaciones de la base de datos.
+
+Ejemplo: BeneficiarioRepository.ts
+
+¿Para qué sirve?
+Implementa los métodos definidos en IBeneficiarioRepository.ts. Es la conexión directa con la base de datos, ejecutando las consultas SQL y devolviendo los resultados.
+
+¿Qué se hace aquí?
+
+Se implementan las consultas SQL utilizando la librería de acceso a datos (en este caso, pg para PostgreSQL).
+
+Se manejan los datos obtenidos de la base de datos y se convierten en modelos de dominio.
+
+Resumen Final:
+models/: Define los objetos que representan las entidades en el dominio.
+
+repositories/: Define las interfaces que el repositorio debe implementar para acceder a los datos.
+
+usecases/: Contiene la lógica de negocio que implementa los casos de uso de las entidades.
+
+db/queries/: Contiene las consultas SQL que interactúan directamente con la base de datos.
+
+graphql/: Contiene los resolvers y esquemas de GraphQL para manejar la comunicación con el frontend.
+
+repositories/implementations/: Contiene las implementaciones concretas de las interfaces de los repositorios para realizar operaciones sobre la base de datos.
+
